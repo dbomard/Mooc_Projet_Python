@@ -23,7 +23,7 @@ def calculate_sommets(center_point, rayon):
     return sommets
 
 
-def pave(point1, point2, point3, point4, couleur):
+def dessine_pave(point1, point2, point3, point4, couleur):
     """
     peint un pavé ayant pour sommets les 4 points p1 à p4 dont les coordonnées dans le plan sont
     représentés sous forme de tuples(x, y, z)
@@ -68,10 +68,10 @@ def hexagone(point, longueur, col, centre, rayon):
     for p in range(6):
         points_sommets[p] = deformation(points_sommets[p], centre, rayon)  # puis les 6 sommets
 
-    # dessins des pavés par la fonction 'pave'
-    pave(point_centre, points_sommets[2], points_sommets[1], points_sommets[0], col[0])  # dessin du pavé n°1
-    pave(point_centre, points_sommets[0], points_sommets[5], points_sommets[4], col[1])  # dessin du pavé n°2
-    pave(point_centre, points_sommets[4], points_sommets[3], points_sommets[2], col[2])  # dessin du pavé n°3
+    # dessins des pavés avec la fonction 'dessine_pave'
+    dessine_pave(point_centre, points_sommets[2], points_sommets[1], points_sommets[0], col[0])  # dessin du pavé n°1
+    dessine_pave(point_centre, points_sommets[0], points_sommets[5], points_sommets[4], col[1])  # dessin du pavé n°2
+    dessine_pave(point_centre, points_sommets[4], points_sommets[3], points_sommets[2], col[2])  # dessin du pavé n°3
 
 
 def deformation(p, centre, rayon):
@@ -109,9 +109,21 @@ def deformation(p, centre, rayon):
     return xprim, yprim, zprim
 
 
-def pavage(inf_gauche, sup_droit, longueur, col, rayon):
+def pavage(inf_gauche, sup_droit, longueur, col, centre, rayon):
     turtle.reset()
-    hexagone((100, 100, 0), 10, ('red', 'black', 'blue'), (120, 120, 0), 200)
+    turtle.speed('fastest')
+    coo_centre_y = inf_gauche[1] + longueur
+    ligne = 0
+    ystep = int(sin(pi/3)*longueur)
+    for y in range(coo_centre_y, sup_droit[1] - longueur, ystep):
+        if ligne % 2:
+            coo_centre_x =int(inf_gauche[0] + longueur * 2.5)
+        else:
+            coo_centre_x = int (inf_gauche[0] + longueur)
+        for x in range(coo_centre_x, sup_droit[0] - longueur, longueur * 3):
+            hexagone((x, y, 0), longueur, col, centre, rayon)
+        ligne += 1
+    turtle.done()
 
 
-pavage(0, 0, 0, 0, 0)
+pavage((-300, -300), (300, 300), 10, ('blue', 'black', 'red'), (-50, -50, -50), 200)
