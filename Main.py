@@ -23,6 +23,7 @@ def pave(point1, point2, point3, point4, couleur):
     turtle.goto(point1[0], point1[1])
     turtle.end_fill()  # clôturer et remplir le pavé
     turtle.up()  # lever le crayon
+import math
 
 
 def hexagone(point, longueur, col, centre, rayon):
@@ -52,6 +53,7 @@ def hexagone(point, longueur, col, centre, rayon):
     p3 = (x + cos(pi / 3) * longueur, y - sin(pi / 3) * longueur, 0)
     p4 =  (x + cos(2 * pi / 3) * longueur, y - sin(pi / 3) * longueur, 0)
     pave(p1, p2, p3, p4, col)
+    pass  # TODO -- Créer une fonction qui dessine hexagone
 
     # dessin du pavé n°3
     p1 = (x, y, z)
@@ -94,6 +96,8 @@ def deformation(p, centre, rayon):
             if centre[2] > 0:
                 zprim = -zprim
     return xprim, yprim, zprim
+def deformation(point, centre, rayon):
+    pass  # TODO -- Calcule la déformation
 
 
 def pavage(inf_gauche, sup_droit, longueur, col, rayon):
@@ -101,3 +105,4 @@ def pavage(inf_gauche, sup_droit, longueur, col, rayon):
 
 
 pass  # TODO -- code principal
+
