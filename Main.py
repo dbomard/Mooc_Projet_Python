@@ -110,20 +110,63 @@ def deformation(p, centre, rayon):
 
 
 def pavage(inf_gauche, sup_droit, longueur, col, centre, rayon):
-    turtle.reset()
-    turtle.speed('fastest')
-    coo_centre_y = inf_gauche[1] + longueur
-    ligne = 0
-    ystep = int(sin(pi/3)*longueur)
+    """
+    Dessine le pavage en commençant en bas à gauche
+    inf_gauche: tuple : coordonnées du coin inférieur gauche
+    sup_droit: tuple : coordonnées du coin suprieur droit
+    longueur: longueur des arêtes
+    col: tuple triple : les 3 couleurs utilisées
+    centre: tuple triple : coordonnées du centre du cercle de déformation
+    rayon: rayon du cercle de déformation
+    """
+    turtle.reset()  # On commence par initialiser 'turtle'
+    turtle.speed('fastest')  # sélectionne la vitesse maximum pour les tracés
+    coo_centre_y = inf_gauche[1] + longueur  # ordonnée du centre du premier hexagone tracé en bas à gauche
+    ligne = 0  # Cette variable sera incrémentée à chaque novelle ligne afin de savoir si la ligne est paire ou impaire
+
+    # calcul des pas de décalage entre les colonnes et les lignes
+    ystep = int(sin(pi / 3) * longueur)
+    xstep = longueur * 3
+
+    # boucle des lignes
     for y in range(coo_centre_y, sup_droit[1] - longueur, ystep):
-        if ligne % 2:
-            coo_centre_x =int(inf_gauche[0] + longueur * 2.5)
+        if ligne % 2:  # détecte si la ligne est impaire pour décaler ou non le premier hexagone
+            coo_centre_x = int(inf_gauche[0] + longueur * 2.5)
         else:
-            coo_centre_x = int (inf_gauche[0] + longueur)
-        for x in range(coo_centre_x, sup_droit[0] - longueur, longueur * 3):
+            coo_centre_x = int(inf_gauche[0] + longueur)
+        # boucle des colonnes, qui appelle la fonction 'hexagone' pour les tracés
+        for x in range(coo_centre_x, sup_droit[0] - longueur, xstep):
             hexagone((x, y, 0), longueur, col, centre, rayon)
         ligne += 1
+
+    # sauvegarde l'image
+    turtle.getcanvas().postscript(file = "pavage.eps")
+    # attend une action de l'utilisateur avant de quitter
     turtle.done()
 
 
-pavage((-300, -300), (300, 300), 10, ('blue', 'black', 'red'), (-50, -50, -50), 200)
+def get_parametres():
+    """
+    Fonction appelée pour obtenir les paramètres de dessin auprès de l'utilisateur
+    :return: tuple contenant tous les informations nécessaires au dessin
+    """
+    coin_inf = int(input("Coin inférieur gauche :"))
+    coin_sup = int(input("Coin supérieur droit :"))
+    l_arrete = int(input("Longueur d'une arrête :"))
+    coul1 = input("Couleur 1 :")
+    coul2 = input("Couleur 2 :")
+    coul3 = input("Couleur 3 :")
+    x_cercle = int(input("Abscisse du centre du cercle :"))
+    y_cercle = int(input("Ordonnée du centre du cercle :"))
+    z_cercle = int(input("Hauteur du centre du cercle :"))
+    r_cercle = int(input("Rayon du cercle :"))
+    return ((coin_inf, coin_inf), (coin_sup, coin_sup), l_arrete, (coul1, coul2, coul3), (x_cercle, y_cercle, z_cercle),
+            r_cercle)
+
+
+"""
+Programme principal
+appelle la fonction get_parametres pour récupérer toutes les informations puis dessine le pavage
+"""
+parametres = get_parametres()
+pavage(parametres[0], parametres[1], parametres[2], parametres[3], parametres[4], parametres[5])
