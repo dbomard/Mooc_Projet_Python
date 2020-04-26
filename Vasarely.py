@@ -2,7 +2,7 @@
 Projet Vasarelis (1.0)
 Auteur : David Bomard
 Date : avril 2020
-Projet de production graphique inspiré par le peintre Vasareli
+Projet de production graphique inspirée par le peintre Vasarely
 """
 from math import pi, sin, cos, sqrt, acos, asin
 import turtle
