@@ -1,3 +1,9 @@
+"""
+Projet Vasarelis (1.0)
+Auteur : David Bomard
+Date : avril 2020
+Projet de production graphique inspiré par le peintre Vasareli
+"""
 from math import pi, sin, cos, sqrt, acos, asin
 import turtle
 
@@ -14,7 +20,7 @@ def calculate_sommets(center_point, rayon):
     """
 
     # initialisation d'un objet de 6 tuples
-    sommets = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)]
+    sommets = [(0, 0, 0)] * 6
 
     # calcul et remplissage des coordonnées des 6 sommets de l'hexagone
     for i in range(len(sommets)):
@@ -28,12 +34,8 @@ def dessine_pave(point1, point2, point3, point4, couleur):
     peint un pavé ayant pour sommets les 4 points p1 à p4 dont les coordonnées dans le plan sont
     représentés sous forme de tuples(x, y, z)
     Entrées :
-        p1 : point n°1
-        p2 : point n°2
-        p3 : point n°3
-        p4 : point n°4
+        les 4 points de p1 à p4
         couleur : couleur du pavé
-
     """
     turtle.up()
     turtle.goto(point1[0], point1[1])  # déplacer la tortue au point n°1
@@ -140,7 +142,7 @@ def pavage(inf_gauche, sup_droit, longueur, col, centre, rayon):
         ligne += 1
 
     # sauvegarde l'image
-    turtle.getcanvas().postscript(file = "pavage.eps")
+    turtle.getcanvas().postscript(file="pavage.eps")
     # attend une action de l'utilisateur avant de quitter
     turtle.done()
 
@@ -165,7 +167,7 @@ def get_parametres():
 
 
 """
-Programme principal
+Code principal
 appelle la fonction get_parametres pour récupérer toutes les informations puis dessine le pavage
 """
 parametres = get_parametres()
