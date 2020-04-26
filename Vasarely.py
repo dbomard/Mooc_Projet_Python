@@ -1,5 +1,5 @@
 """
-Projet Vasarelis (1.0)
+Projet Vasarely (1.0)
 Auteur : David Bomard
 Date : avril 2020
 Projet de production graphique inspirée par le peintre Vasarely
